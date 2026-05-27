@@ -20,7 +20,7 @@ produtos = [
 def submenu_informacoes():
     """Loop do submenu Informações."""
     while True:
-        cabecalho("📋  Informações")
+        cabecalho("  Informações")
 
         print("  1. Horários de Atendimento")
 
@@ -50,7 +50,7 @@ def submenu_informacoes():
 def submenu_pedidos(pedidos, clientes, produtos):
     """Loop do submenu Pedidos."""
     while True:
-        cabecalho("🛒  Pedidos")
+        cabecalho("  Pedidos")
 
         print("  1. Realizar Pedido")
 
@@ -82,7 +82,7 @@ def menu_geral():
     """Loop principal do ChatBot."""
     print("\n" + "═" * 40)
 
-    print("   🤖  ChatBot de Atendimento ao Cliente")
+    print("     ChatBot de Atendimento ao Cliente")
 
     print("═" * 40)
 
@@ -93,11 +93,11 @@ def menu_geral():
         cabecalho("MENU PRINCIPAL")
         print("  1.   Cadastro e Suporte")
 
-        print("  2. 📋  Informações")
+        print("  2.   Informações")
         
-        print("  3. 🛒  Pedidos")
+        print("  3.   Pedidos")
 
-        print("  0. ❌  Encerrar Atendimento")
+        print("  0.   Encerrar Atendimento")
 
 
         opcao = ler_opcao(["1", "2", "3", "0"])
@@ -110,7 +110,7 @@ def menu_geral():
             submenu_pedidos(pedidos, clientes, produtos)
         elif opcao == "0":
             linha()
-            print("  Obrigado pelo contato. Até logo! 👋")
+            print("  Obrigado pelo contato. Até logo! ")
             linha()
             break
   

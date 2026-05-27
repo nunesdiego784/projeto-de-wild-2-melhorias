@@ -1,5 +1,4 @@
-from validacoes import cabecalho, linha, pausar
-
+from dados_iniciais import cabecalho, linha, pausar
 
 def info_horarios():
     cabecalho("Horários de Atendimento")
