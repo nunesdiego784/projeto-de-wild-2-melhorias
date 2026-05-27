@@ -1,4 +1,4 @@
-from validacoes import cabecalho, linha, pausar
+
 def linha():
     print("─" * 40)
 

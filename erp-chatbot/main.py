@@ -1,8 +1,21 @@
 from validacoes import cabecalho, linha, ler_opcao, pausar
 from dados_iniciais import info_horarios, info_contato, info_politicas, info_faq
-from clientes import cadastro_novo_cliente, alterar_cliente, excluir_cliente, suporte_cliente, submenu_cadastro_suporte, clientes
+from clientes import cadastro_novo_cliente, alterar_cliente, excluir_cliente, suporte_cliente, submenu_cadastro_suporte
 from ordens_servico import pedido_novo, pedido_rastrear, pedido_cancelar, pedido_historico
-
+clientes = []
+pedidos = []
+produtos = [
+    {"codigo": 1, "nome": "Ração para Cavalos", "categoria": "Animais", "preco": 120.50, "estoque": 15},
+    {"codigo": 2, "nome": "Saco de Milho 50kg", "categoria": "Grãos", "preco": 89.90, "estoque": 30},
+    {"codigo": 3, "nome": "Adubo Orgânico", "categoria": "Jardinagem", "preco": 45.00, "estoque": 20},
+    {"codigo": 4, "nome": "Mangueira para Irrigação", "categoria": "Irrigação", "preco": 75.99, "estoque": 12},
+    {"codigo": 5, "nome": "Enxada", "categoria": "Ferramentas", "preco": 59.90, "estoque": 18},
+    {"codigo": 6, "nome": "Vacina Veterinária", "categoria": "Veterinária", "preco": 150.00, "estoque": 8},
+    {"codigo": 7, "nome": "Sementes de Capim", "categoria": "Sementes", "preco": 35.50, "estoque": 40},
+    {"codigo": 8, "nome": "Botina de Couro", "categoria": "Vestuário Rural", "preco": 110.00, "estoque": 10},
+    {"codigo": 9, "nome": "Pulverizador Manual", "categoria": "Agricultura", "preco": 98.75, "estoque": 14},
+    {"codigo": 10, "nome": "Arame Farpado 100m", "categoria": "Cercamento", "preco": 210.00, "estoque": 6}
+]  
 
 def submenu_informacoes():
     """Loop do submenu Informações."""
@@ -34,12 +47,12 @@ def submenu_informacoes():
             break   
 
 
-def submenu_pedidos():
+def submenu_pedidos(pedidos, clientes, produtos):
     """Loop do submenu Pedidos."""
     while True:
         cabecalho("🛒  Pedidos")
 
-        print("  1. Realizar Novo Pedido")
+        print("  1. Realizar Pedido")
 
         print("  2. Rastrear Pedido")
 
@@ -53,15 +66,15 @@ def submenu_pedidos():
         opcao = ler_opcao(["1", "2", "3", "4", "0"])
 
         if opcao == "1":
-            pedido_novo()
+            pedido_novo(pedidos, clientes, produtos)
 
         elif opcao == "2":
-            pedido_rastrear()
+            pedido_rastrear(pedidos)
         elif opcao == "3":
-            pedido_cancelar()
+            pedido_cancelar(pedidos)
             
         elif opcao == "4":
-            pedido_historico()
+            pedido_historico(pedidos)
         elif opcao == "0":
             break   # sobe para camada 1
 
@@ -94,11 +107,12 @@ def menu_geral():
         elif opcao == "2":
             submenu_informacoes()
         elif opcao == "3":
-            submenu_pedidos()
+            submenu_pedidos(pedidos, clientes, produtos)
         elif opcao == "0":
             linha()
             print("  Obrigado pelo contato. Até logo! 👋")
             linha()
             break
+  
 if __name__ == "__main__":
     menu_geral()

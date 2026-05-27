@@ -1,7 +1,7 @@
 from validacoes import cabecalho, linha, pausar, ler_opcao
 
 
-def cadastro_novo_cliente():
+def cadastro_novo_cliente(clientes):
     cabecalho("Cadastrar Novo Cliente")
     print("  Informe os dados abaixo:")
     nome = input("  Nome completo : ").strip()
@@ -12,26 +12,61 @@ def cadastro_novo_cliente():
     else:
         print("   Dados incompletos. Cadastro não realizado.")
     pausar()
-
 def alterar_cliente(clientes):
     cabecalho("Alterar Dados do Cliente")
-    cpf = input("Digite o CPF do cliente que deseja alterar: ").strip()
+    
+    cpf_busca = input("Digite o CPF do cliente que deseja alterar: ").strip()
+    cliente_encontrado = None
 
     for cliente in clientes:
-        if cliente["cpf"] == cpf:
-            print(f"Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
-            novo_nome = input("Digite o novo nome (deixe em branco para manter): ").strip()
-            novo_cpf  = input("Digite o novo CPF (deixe em branco para manter): ").strip()
-            if novo_nome:
-                cliente["nome"] = novo_nome
-            if novo_cpf:
-                cliente["cpf"] = novo_cpf
-            print("Cliente atualizado com sucesso!")
-            return
+        if cliente["cpf"] == cpf_busca:
+            cliente_encontrado = cliente
+            break 
 
-    # Só chega aqui se nenhum cliente foi encontrado
-    print("Cliente não encontrado. Verifique o CPF e tente novamente.")
+    if cliente_encontrado:
+        print(f"\n Cliente encontrado: {cliente_encontrado['nome']} (CPF: {cliente_encontrado['cpf']})")
+        
+        while True:
+            novo_nome = input("\nDigite o novo nome (deixe em branco para manter): ").strip()
+            if not novo_nome:
+                print("-> Mantendo o nome atual.")
+                break 
+            
+            if len(novo_nome) >= 3:
+                cliente_encontrado["nome"] = novo_nome
+                print("-> Nome atualizado com sucesso!")
+                break
+            else:
+                print(" Nome muito curto! O nome deve ter pelo menos 3 caracteres.")
 
+        # VALIDAÇÃO DO NOVO CPF
+        while True:
+            novo_cpf = input("\nDigite o novo CPF (deixe em branco para manter): ").strip()
+            if not novo_cpf:
+                print("-> Mantendo o CPF atual.")
+                break 
+
+            if len(novo_cpf) == 11 and novo_cpf.isdigit():
+                # Verifica se o novo CPF já não pertence a OUTRA pessoa
+                cpf_ja_existe = False
+                for c in clientes:
+                    if c["cpf"] == novo_cpf:
+                        cpf_ja_existe = True
+                        break
+                
+                if cpf_ja_existe:
+                    print(" Erro: Este CPF já está cadastrado para outro cliente!")
+                else:
+                    cliente_encontrado["cpf"] = novo_cpf
+                    print("-> CPF atualizado com sucesso!")
+                    break
+            else:
+                print(" CPF inválido! Digite exatamente 11 números (apenas dígitos).")
+
+        print("\n=== Processo de alteração finalizado! ===")
+
+    else:
+        print("\n❌ Cliente não encontrado. Verifique o CPF e tente novamente.")
 
 def excluir_cliente(clientes):
     cabecalho("Excluir Cliente")
@@ -60,7 +95,6 @@ def suporte_cliente():
     pausar()
 
 def submenu_cadastro_suporte(clientes):
-    """Loop do submenu de Cadastro e Suporte."""
 
     while True:
         cabecalho("👤  Cadastro e Suporte")
@@ -82,26 +116,18 @@ def submenu_cadastro_suporte(clientes):
         elif opcao == "3":
             excluir_cliente(clientes)
         elif opcao == "4":
-            suporte_cliente()   
+            suporte_cliente() 
 
+def cadastro_novo_cliente(clientes):  
+    cabecalho("Cadastrar Novo Cliente")
+    print("  Informe os dados abaixo:")
+    nome = input("  Nome completo : ").strip()
+    cpf = input("  CPF           : ").strip()
 
-clientes = []
-
-def cadastramento_de_cliente():
-    nome = input("Digite o nome do cliente: ")
-    cpf = input("Digite o CPF do cliente: ")
-
-    novo_cliente = {
-        "nome": nome,
-        "cpf": cpf
-    }
-
-    clientes.append(novo_cliente)
-
-    print("Cliente cadastrado com sucesso!")
-
-# Chamando a função
-cadastramento_de_cliente()
-
-# Mostrando os clientes cadastrados
-print(clientes)
+    novo_cliente = {"nome": nome, "cpf": cpf}
+    
+    clientes.append(novo_cliente)  
+    
+    print(f"\n   Cliente '{nome}' cadastrado com sucesso!")
+    print(f"      CPF: {cpf}")
+    pausar()
