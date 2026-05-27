@@ -1,29 +1,24 @@
-"""
-ChatBot de Atendimento ao Cliente
-Etapa 2 — Menu Geral, Submenus e Loop
-Estrutura: 3 camadas de loop
-  Camada 1: Loop principal (Menu Geral)
-  Camada 2: Loop de submenu (Informações / Pedidos)
-  Camada 3: Loop de ação (executa e volta ao submenu)
-"""
+def menu_geral():
+    """Loop principal do ChatBot."""
+    print("\n" + "═" * 40)
+    print("   🤖  ChatBot de Atendimento ao Cliente")
+    print("═" * 40)
+    print("   Olá! Bem-vindo(a) ao nosso atendimento.")
 
-
-def linha ():
-
-    print('-' * 50)
-
-def cabecalho (titulo: str) :
-    linha()
-    print(titulo)
-    linha()
-
-def pausar():
-    input('Pressione Enter para continuar...')
-
-def ler_opcao(opcoes_validas: list[str])-> str:
-    """le a entrada do usuario e retorna a opcao escolhiada"""
     while True:
-            escolha = int(input('Digite sua opção: '))
-    if escolha in opcoes_validas:
-            return escolha
-print('Opção inválida. Tente novamente.')
+        cabecalho("MENU PRINCIPAL")
+        print("  1. 📋  Informações")
+        print("  2. 🛒  Pedidos")
+        print("  0. ❌  Encerrar Atendimento")
+
+        opcao = ler_opcao(["1", "2", "0"])
+
+    if opcao == "1":
+            submenu_informacoes()      # entra na camada 2
+    elif opcao == "2":
+            submenu_pedidos()          # entra na camada 2
+         elif opcao == "0":
+            linha()
+            print("  Obrigado pelo contato. Até logo! 👋")
+            linha()
+     break
