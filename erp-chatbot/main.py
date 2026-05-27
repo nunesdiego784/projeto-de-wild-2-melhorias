@@ -23,8 +23,19 @@ def ler_opcao(opcoes_validas: list[str]) -> str:
         escolha = input("\nEscolha uma opção: ").strip()
         if escolha in opcoes_validas:
             return escolha
-        print(f"  ⚠  Opção inválida. Escolha entre: {', '.join(opcoes_validas)}")
-
+        print(f"  ⚠  Opção inválida. Escolha entre: {', '.join(opcoes_validas)}")  
+       
+def cadastro_novo_cliente():
+    cabecalho("Cadastrar Novo Cliente")
+    print("  Informe os dados abaixo:")
+    nome = input("  Nome completo : ").strip()
+    cpf  = input("  CPF          : ").strip()
+    if nome and cpf:
+        print(f"\n   Cliente '{nome}' cadastrado com sucesso!")
+        print(f"     CPF: {cpf}")
+    else:
+        print("   Dados incompletos. Cadastro não realizado.")
+    pausar()
 
 def info_horarios():
     cabecalho("Horários de Atendimento")
@@ -117,7 +128,64 @@ def pedido_historico():
 
 
 
+def submenu_cadastro_suporte():
+    """Loop do submenu de Cadastro e Suporte."""
 
+    while True:
+        cabecalho("👤  Cadastro e Suporte")
+
+        print("  1. Cadastrar Novo Cliente")
+        print("  2. Alterar Dados do Cliente")
+        print("  3. Excluir Cliente")
+        print("  4. Suporte ao Cliente")
+        print("  0. Voltar ao Menu Principal")
+
+        opcao = ler_opcao(["1", "2", "3", "4", "0"])
+
+        if opcao == "0":
+            break
+        elif opcao == "1":
+            cadastro_novo_cliente() 
+
+        elif opcao == "2":
+            def submenu_alterar_cliente():
+                cabecalho("Alterar Dados do Cliente")
+                cpf = input("Digite o CPF do cliente que deseja alterar: ").strip()
+                for cliente in clientes:
+                    if cliente["cpf"] == cpf:
+                        print(f"Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
+                        novo_nome = input("Digite o novo nome (deixe em branco para manter): ").strip()
+                        novo_cpf  = input("Digite o novo CPF (deixe em branco para manter): ").strip()
+                        if novo_nome:
+                            cliente["nome"] = novo_nome
+                        if novo_cpf:
+                            cliente["cpf"] = novo_cpf
+                        print("Cliente atualizado com sucesso!")
+                        return
+                    else:
+                        print("Alteração cancelada.")
+                        return  
+                print("Cliente não encontrado. Verifique o CPF e tente novamente.")
+                pausar()
+
+
+        elif opcao == "3":
+            def submenu_excluir_cliente():
+                cabecalho("Excluir Cliente")
+                cpf = input(" Digite o CPF do cliente que deseja excluir: ").strip()
+                for cliente in clientes:
+                    if cliente["cpf"] == cpf:
+                        print(f" Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
+                        confirma = input(" Confirmar exclusão deste cliente? (s/n): ").strip().lower()
+                        if confirma == "s":
+                            clientes.remove(cliente)
+                            print(" Cliente excluído com sucesso!")
+                            return
+                        else:
+                            print(" Exclusão cancelada.")
+                            return
+                print(" Cliente não encontrado. Verifique o CPF e tente novamente.")
+                pausar()
 
 def submenu_informacoes():
     """Loop do submenu Informações."""
@@ -193,19 +261,22 @@ def menu_geral():
 
     while True:
         cabecalho("MENU PRINCIPAL")
+        print("  1.   Cadastro e Suporte")
 
-        print("  1. 📋  Informações")
+        print("  2. 📋  Informações")
         
-        print("  2. 🛒  Pedidos")
+        print("  3. 🛒  Pedidos")
 
         print("  0. ❌  Encerrar Atendimento")
 
 
-        opcao = ler_opcao(["1", "2", "0"])
+        opcao = ler_opcao(["1", "2", "3", "0"])
 
         if opcao == "1":
-            submenu_informacoes()      # entra na camada 2
+            submenu_cadastro_suporte() # entra na camada 2
         elif opcao == "2":
+            submenu_informacoes()      # entra na camada 2
+        elif opcao == "3":
             submenu_pedidos()          # entra na camada 2
         elif opcao == "0":
             linha()
