@@ -16,4 +16,4 @@ def ler_opcao(opcoes_validas: list[str]) -> str:
         escolha = input("\nEscolha uma opção: ").strip()
         if escolha in opcoes_validas:
             return escolha
-        print(f"  ⚠  Opção inválida. Escolha entre: {', '.join(opcoes_validas)}")  
+        print(f" Opção inválida. Escolha entre: {', '.join(opcoes_validas)}")  

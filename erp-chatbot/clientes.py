@@ -66,7 +66,7 @@ def alterar_cliente(clientes):
         print("\n=== Processo de alteração finalizado! ===")
 
     else:
-        print("\n❌ Cliente não encontrado. Verifique o CPF e tente novamente.")
+        print("\n Cliente não encontrado. Verifique o CPF e tente novamente.")
 
 def excluir_cliente(clientes):
     cabecalho("Excluir Cliente")
@@ -90,14 +90,14 @@ def excluir_cliente(clientes):
 def suporte_cliente():
     cabecalho("Suporte ao Cliente")
     print("  Para suporte, por favor entre em contato conosco através dos seguintes canais:")
-    print("  - Telefone: (11) 1234-5678")
-    print("  - E-mail: suporte@empresa.com")
+    print("  - Telefone: 4022-8922")
+    print("  - E-mail: suporte@casadecampocentral.com")
     pausar()
 
 def submenu_cadastro_suporte(clientes):
 
     while True:
-        cabecalho("👤  Cadastro e Suporte")
+        cabecalho("  Cadastro e Suporte")
 
         print("  1. Cadastrar Novo Cliente")
         print("  2. Alterar Dados do Cliente")
