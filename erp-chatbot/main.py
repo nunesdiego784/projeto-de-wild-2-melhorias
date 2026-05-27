@@ -113,13 +113,7 @@ def pedido_cancelar():
 def pedido_historico():
     cabecalho("Histórico de Pedidos")
     # Dados simulados
-    historico = [
-        ("PED-001", "Notebook",    "Entregue",   "10/05/2025"),
-
-        ("PED-002", "Mouse",       "Em trânsito","20/05/2025"),
-
-        ("PED-003", "Teclado",     "Cancelado",  "22/05/2025"),
-    ]
+    historico = []
     print(f"  {'Código':<10} {'Produto':<15} {'Status':<15} {'Data'}")
     linha()
     for cod, prod, status, data in historico:
@@ -166,7 +160,7 @@ def submenu_cadastro_suporte():
                         print("Alteração cancelada.")
                         return  
                 print("Cliente não encontrado. Verifique o CPF e tente novamente.")
-                pausar()
+                submenu_alterar_cliente()
 
 
         elif opcao == "3":
@@ -185,7 +179,7 @@ def submenu_cadastro_suporte():
                             print(" Exclusão cancelada.")
                             return
                 print(" Cliente não encontrado. Verifique o CPF e tente novamente.")
-                pausar()
+                submenu_excluir_cliente()
 
 def submenu_informacoes():
     """Loop do submenu Informações."""
