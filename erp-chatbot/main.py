@@ -145,7 +145,7 @@ def submenu_cadastro_suporte():
         elif opcao == "3":
             excluir_cliente()
         elif opcao == "4":
-            suporte_cliente()
+            suporte_cliente()   
 
 
 def alterar_cliente():
@@ -222,7 +222,7 @@ def submenu_informacoes():
         elif opcao == "4":
             info_faq()
         elif opcao == "0":
-            break   # sobe para camada 1
+            break   
 
 
 def submenu_pedidos():
