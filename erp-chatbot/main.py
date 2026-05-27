@@ -139,47 +139,61 @@ def submenu_cadastro_suporte():
         if opcao == "0":
             break
         elif opcao == "1":
-            cadastro_novo_cliente() 
-
+            cadastro_novo_cliente()
         elif opcao == "2":
-            def submenu_alterar_cliente():
-                cabecalho("Alterar Dados do Cliente")
-                cpf = input("Digite o CPF do cliente que deseja alterar: ").strip()
-                for cliente in clientes:
-                    if cliente["cpf"] == cpf:
-                        print(f"Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
-                        novo_nome = input("Digite o novo nome (deixe em branco para manter): ").strip()
-                        novo_cpf  = input("Digite o novo CPF (deixe em branco para manter): ").strip()
-                        if novo_nome:
-                            cliente["nome"] = novo_nome
-                        if novo_cpf:
-                            cliente["cpf"] = novo_cpf
-                        print("Cliente atualizado com sucesso!")
-                        return
-                    else:
-                        print("Alteração cancelada.")
-                        return  
-                print("Cliente não encontrado. Verifique o CPF e tente novamente.")
-                submenu_alterar_cliente()
-
-
+            alterar_cliente()
         elif opcao == "3":
-            def submenu_excluir_cliente():
-                cabecalho("Excluir Cliente")
-                cpf = input(" Digite o CPF do cliente que deseja excluir: ").strip()
-                for cliente in clientes:
-                    if cliente["cpf"] == cpf:
-                        print(f" Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
-                        confirma = input(" Confirmar exclusão deste cliente? (s/n): ").strip().lower()
-                        if confirma == "s":
-                            clientes.remove(cliente)
-                            print(" Cliente excluído com sucesso!")
-                            return
-                        else:
-                            print(" Exclusão cancelada.")
-                            return
-                print(" Cliente não encontrado. Verifique o CPF e tente novamente.")
-                submenu_excluir_cliente()
+            excluir_cliente()
+        elif opcao == "4":
+            suporte_cliente()
+
+
+def alterar_cliente():
+    cabecalho("Alterar Dados do Cliente")
+    cpf = input("Digite o CPF do cliente que deseja alterar: ").strip()
+
+    for cliente in clientes:
+        if cliente["cpf"] == cpf:
+            print(f"Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
+            novo_nome = input("Digite o novo nome (deixe em branco para manter): ").strip()
+            novo_cpf  = input("Digite o novo CPF (deixe em branco para manter): ").strip()
+            if novo_nome:
+                cliente["nome"] = novo_nome
+            if novo_cpf:
+                cliente["cpf"] = novo_cpf
+            print("Cliente atualizado com sucesso!")
+            return
+
+    # Só chega aqui se nenhum cliente foi encontrado
+    print("Cliente não encontrado. Verifique o CPF e tente novamente.")
+
+
+def excluir_cliente():
+    cabecalho("Excluir Cliente")
+    cpf = input("Digite o CPF do cliente que deseja excluir: ").strip()
+
+    for cliente in clientes:
+        if cliente["cpf"] == cpf:
+            print(f"Cliente encontrado: {cliente['nome']} (CPF: {cliente['cpf']})")
+            confirma = input("Confirmar exclusão deste cliente? (s/n): ").strip().lower()
+            if confirma == "s":
+                clientes.remove(cliente)
+                print("Cliente excluído com sucesso!")
+            else:
+                print("Exclusão cancelada.")
+            return
+
+    # Só chega aqui se nenhum cliente foi encontrado
+    print("Cliente não encontrado. Verifique o CPF e tente novamente.")
+
+
+def suporte_cliente():
+    cabecalho("Suporte ao Cliente")
+    print("  Para suporte, por favor entre em contato conosco através dos seguintes canais:")
+    print("  - Telefone: (11) 1234-5678")
+    print("  - E-mail: suporte@empresa.com")
+    pausar()
+
 
 def submenu_informacoes():
     """Loop do submenu Informações."""
