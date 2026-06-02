@@ -50,7 +50,7 @@ def submenu_informacoes():
             break
 
 
-def submenu_pedidos():
+def submenu_pedidos(clientes, pedidos, produtos):
     while True:
         cabecalho("  Pedidos")
         print("  1. Realizar Pedido")
@@ -65,7 +65,7 @@ def submenu_pedidos():
         elif opcao == "2":
             pedido_rastrear(pedidos)
         elif opcao == "3":
-            pedido_cancelar(pedidos)
+            pedido_cancelar(clientes, pedidos)
         elif opcao == "4":
             pedido_historico(pedidos, clientes)   # passa clientes para busca dinâmica
         elif opcao == "0":
@@ -96,7 +96,7 @@ def menu_geral():
         elif opcao == "2":
             submenu_informacoes()
         elif opcao == "3":
-            submenu_pedidos()
+            submenu_pedidos(clientes, pedidos, produtos)   # passa clientes e produtos para validação
         elif opcao == "0":
             linha()
             print("  Obrigado pelo contato. Até logo!")

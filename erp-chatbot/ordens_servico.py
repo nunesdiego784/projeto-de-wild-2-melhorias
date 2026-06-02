@@ -174,22 +174,50 @@ def pedido_rastrear(pedidos):
     pausar()
 
 
-def pedido_cancelar(pedidos):
+def pedido_cancelar(clientes, pedidos):
     cabecalho("Cancelar Pedido")
+
     if not pedidos:
         print("   Nenhum pedido registrado no sistema ainda.")
         pausar()
         return
 
+    # --- 1. Busca cliente pelo CPF ---
+    cpf = input("   CPF do cliente (somente números): ").strip()
+    cliente = next((c for c in clientes if c["cpf"] == cpf), None)
+
+    if not cliente:
+        print("   Cliente não encontrado no sistema.")
+        pausar()
+        return
+
+    # --- 2. Busca pedidos ativos do cliente ---
+    pedidos_do_cliente = [
+        p for p in pedidos
+        if p.get("cpf_cliente") == cpf and p["status"] != "Cancelado"
+    ]
+
+    if not pedidos_do_cliente:
+        print(f"   Cliente {cliente['nome']} não possui pedidos ativos.")
+        pausar()
+        return
+
+    # --- 3. Exibe pedidos do cliente ---
+    print(f"\n   Cliente: {cliente['nome']}")
+    print(f"   Pedidos ativos:\n")
+    for p in pedidos_do_cliente:
+        print(f"   #{p['codigo']} - {p['nome_produto']} | Qtd: {p['quantidade']} | Total: R$ {p['total']:.2f} ({p['status']})")
+
+    # --- 4. Busca pelo código (lógica original) ---
     try:
-        codigo_busca = int(input("  Número do pedido a cancelar: ").strip())
+        codigo_busca = int(input("\n   Número do pedido a cancelar: ").strip())
     except ValueError:
         print("   Código inválido! Use apenas números.")
         pausar()
         return
 
     pedido_encontrado = None
-    for p in pedidos:
+    for p in pedidos_do_cliente:
         if p["codigo"] == codigo_busca:
             pedido_encontrado = p
             break
@@ -199,18 +227,17 @@ def pedido_cancelar(pedidos):
         pausar()
         return
 
-    if pedido_encontrado["status"] == "Cancelado":
-        print("   Este pedido já se encontra cancelado.")
-        pausar()
-        return
-
+    # --- 5. Confirmação ---
     print(f"\n   Pedido #{pedido_encontrado['codigo']} - {pedido_encontrado['nome_produto']}")
-    confirma = input("  Confirmar cancelamento? (s/n): ").strip().lower()
+    print(f"   Total: R$ {pedido_encontrado['total']:.2f} | Status: {pedido_encontrado['status']}")
+    confirma = input("\n   Confirmar cancelamento? (s/n): ").strip().lower()
+
     if confirma == "s":
         pedido_encontrado["status"] = "Cancelado"
         print("   Pedido cancelado com sucesso.")
     else:
         print("   Cancelamento abortado.")
+
     pausar()
 
 
